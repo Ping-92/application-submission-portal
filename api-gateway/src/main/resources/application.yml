@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      routes:
+      - id: NOTIFICATION-SERVICE
+        uri: lb://NOTIFICATION-SERVICE
+        predicates:
+        - Path=/api/notificationservice/**
+        filters:
+        - StripPrefix=2
