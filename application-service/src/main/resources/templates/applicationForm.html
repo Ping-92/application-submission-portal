@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Application Form</title>
+<script>
+	function validateform() {
+		var dateOfBirth = document.getElementById("dateOfBirth").value;
+		var age = getAge(dateOfBirth);
+		if (age < 18) {
+			alert("Age should be 18 or higher");
+			return false;
+		}
+		 document.appform.submit();
+	}
+	function getAge(dateOfBirth) {
+	    var today = new Date();
+	    var birthDate = new Date(dateOfBirth);
+	    var age = today.getFullYear() - birthDate.getFullYear();
+	    var m = today.getMonth() - birthDate.getMonth();
+	    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+	        age--;
+	    }
+	    return age;
+	}
+</script>
+</head>
+<body>
+    <h1>Application Form</h1>
+        <form action="#" th:action="@{/application/applicationpage}" th:object="${application}" method="post"
+        onsubmit="event.preventDefault(); validateform();" name="appform">
+            <table>
+                <tr >
+                    <td>Name:</td>
+                    <td><input type="text" th:field="*{name}" required/></td>
+                </tr>
+                <tr>
+                    <td>Race:</td>
+                    <td><input type="text" th:field="*{race}" required/></td>
+                </tr>
+                <tr>
+                    <td>Date of Birth:</td>
+                    <td><input type="date" th:field="*{dateOfBirth}" id="dateOfBirth" required/></td>
+                </tr>
+                <tr>
+                    <td>Country of Birth:</td>
+                    <td><input type="text" th:field="*{countryOfBirth}" required/></td>
+                </tr>
+                <tr>
+                    <td>Vaccination Status:</td>
+                    <td><input type="text" th:field="*{vaccinationStatus}" required/></td>
+                </tr>
+                <tr>
+                    <td><button type="submit" name="Submit">Submit</button></td>
+                </tr>
+            </table>
+        </form>
+        </body>
+</html>

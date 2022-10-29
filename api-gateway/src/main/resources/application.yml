@@ -10,3 +10,9 @@ spring:
         - Path=/api/notificationservice/**
         filters:
         - StripPrefix=2
+      - id: APPLICATION-SERVICE
+        uri: lb://APPLICATION-SERVICE
+        predicates:
+        - Path=/api/applicationservice/**
+        filters:
+        - StripPrefix=2

@@ -7,34 +7,48 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Application {
 	@Id
 	@GeneratedValue
 	private int applicationId;
+	
+	@NotNull
 	private String name;
+	
+	@NotNull
 	private String race;
-	private int age;
-	private LocalDate dateofBirth;
-	private String countryofBirth;
+	
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private LocalDate dateOfBirth;
+	
+	@NotNull
+	private String countryOfBirth;
+	
+	@NotNull
 	private String vaccinationStatus;
+	
 	private LocalDateTime submissionDateTime;
 	private String applicationStatus;
 	
 	@Transient
 	private Users user;
+	
+	public Application() {}
 
-	public Application(int applicationId, String name, String race, int age, LocalDate dateofBirth,
-			String countryofBirth, String vaccinationStatus, LocalDateTime submissionDateTime, String applicationStatus,
+	public Application(int applicationId, String name, String race, LocalDate dateOfBirth,
+			String countryOfBirth, String vaccinationStatus, LocalDateTime submissionDateTime, String applicationStatus,
 			Users user) {
 		super();
 		this.applicationId = applicationId;
 		this.name = name;
 		this.race = race;
-		this.age = age;
-		this.dateofBirth = dateofBirth;
-		this.countryofBirth = countryofBirth;
+		this.dateOfBirth = dateOfBirth;
+		this.countryOfBirth = countryOfBirth;
 		this.vaccinationStatus = vaccinationStatus;
 		this.submissionDateTime = submissionDateTime;
 		this.applicationStatus = applicationStatus;
@@ -73,28 +87,20 @@ public class Application {
 		this.race = race;
 	}
 
-	public int getAge() {
-		return age;
+	public LocalDate getDateOfBirth() {
+		return dateOfBirth;
 	}
 
-	public void setAge(int age) {
-		this.age = age;
+	public void setDateOfBirth(LocalDate dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
 	}
 
-	public LocalDate getDateofBirth() {
-		return dateofBirth;
+	public String getCountryOfBirth() {
+		return countryOfBirth;
 	}
 
-	public void setDateofBirth(LocalDate dateofBirth) {
-		this.dateofBirth = dateofBirth;
-	}
-
-	public String getCountryofBirth() {
-		return countryofBirth;
-	}
-
-	public void setCountryofBirth(String countryofBirth) {
-		this.countryofBirth = countryofBirth;
+	public void setCountryOfBirth(String countryOfBirth) {
+		this.countryOfBirth = countryOfBirth;
 	}
 
 	public String getVaccinationStatus() {
@@ -120,7 +126,4 @@ public class Application {
 	public void setApplicationStatus(String applicationStatus) {
 		this.applicationStatus = applicationStatus;
 	}
-
-	
-	
 }
