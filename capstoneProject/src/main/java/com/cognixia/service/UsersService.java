@@ -29,9 +29,11 @@ public class UsersService {
 	public Users getUserById(int id) {
 		return userRepository.findById(id).orElseThrow(UsersNotFoundException::new);
 	}
+
 	
 	public Users validateUserandPassword(Users user) {
 		return userRepository.findByUserNameAndPassword(user.getUserName(), user.getPassword());
 		
 	}
+
 }

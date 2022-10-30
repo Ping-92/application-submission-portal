@@ -7,7 +7,9 @@ import com.cognixia.model.Users;
 
 @Repository
 public interface UserRepository extends JpaRepository<Users, Integer> {
+
 	public Users findByUserNameAndPassword(String userName, String password);
+
 
 
 }

@@ -25,6 +25,7 @@ public class UsersFormController implements WebMvcConfigurer{
 	UsersService usersService;
 
 
+
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/results").setViewName("results");
@@ -41,6 +42,7 @@ public class UsersFormController implements WebMvcConfigurer{
 			return "userForm";
 		}
 		usersController.addUser(user);
+
 		return "results";
 	}
 
@@ -59,5 +61,4 @@ public class UsersFormController implements WebMvcConfigurer{
 				return "loginFail";
 			}
 		}
-	  
 }
