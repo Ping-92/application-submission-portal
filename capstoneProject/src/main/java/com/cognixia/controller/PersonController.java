@@ -1,7 +1,6 @@
 package com.cognixia.controller;
 
 import java.net.URI;
-import java.util.List;
 
 import javax.validation.Valid;
 
@@ -15,37 +14,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.cognixia.model.Person;
 import com.cognixia.model.Users;
-import com.cognixia.service.UsersService;
-
-
+import com.cognixia.service.PersonService;
 
 @RestController
-@RequestMapping("/users")
-public class UsersController {
+@RequestMapping("/persondb")
+public class PersonController {
 	@Autowired
-	UsersService usersService;
+	PersonService personService;
 	
-	@GetMapping
-	public ResponseEntity<List<Users>> getAllUser(){
-		return ResponseEntity.ok(usersService.getAllUser());
-	}
-	@PostMapping("/user")
-	public ResponseEntity<Users> addUser(@RequestBody @Valid Users user){
-		Users newUser = usersService.addUser(user);
+	@PostMapping("/person")
+	public ResponseEntity<Person> addPerson(@RequestBody @Valid Person person, Users user){
+		Person newPerson = personService.addPerson(person, user);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(newUser.getUserId()).toUri();
+				.buildAndExpand(newPerson.getPersonId()).toUri();
 		return ResponseEntity.created(location).build();
 	}
 	
-	@GetMapping("/user/{id}")
-	public ResponseEntity<Users> getUserById(@PathVariable("id") int id ){
-		Users user = usersService.getUserById(id);
-		if (user == null) {
+	@GetMapping("/{id}")
+	public ResponseEntity<Person> getPersonById(@PathVariable int id){
+		Person person = personService.getPersonById(id);
+		if (person == null) {
 			return ResponseEntity.notFound().build();
 		} else {
-			return ResponseEntity.ok(user);
+			return ResponseEntity.ok(person);
 		}
 	}
 	
+	@GetMapping("users/")
+	public ResponseEntity<Users> getUsersByUsernameandPassword(@RequestBody Users user){
+		Users findUser = personService.getUsersByUsernameandPassword(user);
+		if (user == null) {
+			return ResponseEntity.notFound().build();
+		} else {
+			return ResponseEntity.ok(findUser); 
+		}
+	}
+
 }
