@@ -3,78 +3,56 @@ package com.cognixia.model;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 @Entity
-public class Users {
-	
+public class Users{
 	@Id
-	@GeneratedValue
-	private int userId;
-	@NotNull
-	private String userName;
-	@NotNull
-	@Size(min=2, max=30)
-	private String password;
-	@NotNull
-	private String email;
-	@NotNull
-	private String mobilePhone;
-	private LocalDateTime lastLogin;
+	private int usersId;
 	
-	public int getUserId() {
-		return userId;
+	private String password;
+	
+	private String username;
+	private LocalDateTime lastLogin;
+	public Users() {
 	}
-	public void setUserId(int userId) {
-		this.userId = userId;
+
+	public int getUsersId() {
+		return usersId;
 	}
-	public String getUserName() {
-		return userName;
+
+	public void setUserId(int usersId) {
+		this.usersId = usersId;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getEmail() {
-		return email;
+
+	public String getUsername() {
+		return username;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
-	public String getMobilePhone() {
-		return mobilePhone;
-	}
-	public void setMobilePhone(String mobilePhone) {
-		this.mobilePhone = mobilePhone;
-	}
+
 	public LocalDateTime getLastLogin() {
 		return lastLogin;
 	}
+
 	public void setLastLogin(LocalDateTime lastLogin) {
 		this.lastLogin = lastLogin;
 	}
-	
-	public Users() {
-		// TODO Auto-generated constructor stub
-	}
-	public Users(int userId, @NotNull String userName, @NotNull String password, @NotNull String email,
-			@NotNull String mobilePhone, LocalDateTime lastLogin) {
-		super();
-		this.userId = userId;
-		this.userName = userName;
-		this.password = password;
-		this.email = email;
-		this.mobilePhone = mobilePhone;
-		this.lastLogin = lastLogin;
-	}
-	
 
+	public void setUsersId(int usersId) {
+		this.usersId = usersId;
+	}
+	
+	
+	
 }
