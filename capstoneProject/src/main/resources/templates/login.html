@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Login</title>
+<style>
+div {
+	position: absolute;
+	margin-top: 300px;
+	margin-left: 45%
+}
+</style>
+</head>
+<body style="background-color: powderblue;">
+    <h1>Login</h1>
+        <form action="#" th:action="@{/login}" th:object="${users}" method="post">
+            <table>
+                <tr th:object="${users}">
+                    <td>UserName:</td>
+                    <td><input type="text" th:field="*{username}" id="uname"/></td>
+                </tr>
+                <tr th:object="${users}">
+                    <td>Password:</td>
+                    <td><input type="password" th:field="*{password}" id="newpassword"/></td>
+                </tr>
+                    <td><button type="submit" name="Login">Login</button></td>
+                </tr>
+            </table>
+        </form>
+        <br><input type="button" value="Registration page" onclick="location.href='register';">
+    </body>
+</html>
