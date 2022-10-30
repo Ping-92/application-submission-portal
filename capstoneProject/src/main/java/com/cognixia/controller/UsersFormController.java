@@ -22,7 +22,7 @@ public class UsersFormController implements WebMvcConfigurer{
 	UsersController usersController;
 	
 	@Autowired
-	UsersService userService;
+	UsersService usersService;
 
 
 	@Override
@@ -41,6 +41,23 @@ public class UsersFormController implements WebMvcConfigurer{
 			return "userForm";
 		}
 		usersController.addUser(user);
-		return "redirect:/results";
+		return "results";
 	}
+
+	  @GetMapping("/login")
+	  public String showForm(Users user) {
+			return "login";
+		}
+
+
+		@PostMapping("/login")
+		public String verifyLogin(Users user) {
+			Users verifyUser = usersService.validateUserandPassword(user);
+			if (verifyUser != null){
+				return "loginSuccess";
+			}else {
+				return "loginFail";
+			}
+		}
+	  
 }
