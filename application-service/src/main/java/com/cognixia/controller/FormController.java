@@ -39,6 +39,6 @@ public class FormController implements WebMvcConfigurer{
 			return "applicationForm";
 		}
 		applicationController.addApplication(application);
-		return "redirect:/results";
+		return "results";
 	}
 }
