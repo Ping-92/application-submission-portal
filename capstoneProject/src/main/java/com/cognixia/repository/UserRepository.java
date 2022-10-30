@@ -6,16 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.cognixia.model.Users;
 
 @Repository
-public interface UsersRepository extends JpaRepository<Users, Integer> {
-
-	Users findByUsernameAndPassword(String userName, String password);
-
-	
-
-	
-
-	
-
-	
+public interface UserRepository extends JpaRepository<Users, Integer> {
 
 }
