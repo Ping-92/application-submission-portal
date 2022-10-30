@@ -12,11 +12,11 @@ div {
 </head>
 <body style="background-color: powderblue;">
     <h1>Login</h1>
-        <form action="#" th:action="@{/login}" th:object="${users}" method="post">
+        <form action="#" th:action="@{/api/userservice/users/login}" th:object="${users}" method="post">
             <table>
                 <tr th:object="${users}">
                     <td>UserName:</td>
-                    <td><input type="text" th:field="*{username}" id="uname"/></td>
+                    <td><input type="text" th:field="*{userName}" id="uname"/></td>
                 </tr>
                 <tr th:object="${users}">
                     <td>Password:</td>
