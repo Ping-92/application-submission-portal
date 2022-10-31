@@ -38,15 +38,10 @@ public class UsersService {
 	public Users validateUserandPassword(Users user) {
 		return userRepository.findByUserNameAndPassword(user.getUserName(), user.getPassword());
 		
-	}
-<<<<<<< HEAD
-	
+	}	
 	public boolean insertCurrentUser(Users user) {
 		jdbcTemplate.update("DELETE FROM login_user");
 		jdbcTemplate.update("INSERT INTO login_user VALUES (?)", user.getUserId());
 		return true;
 	}
-=======
-
->>>>>>> refs/remotes/origin/users
 }
