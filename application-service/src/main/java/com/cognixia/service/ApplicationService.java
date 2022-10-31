@@ -1,5 +1,9 @@
 package com.cognixia.service;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -7,20 +11,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+
+import com.cognixia.SftpConfig.UploadGateway;
+import com.cognixia.common.LocalDateSerializer;
+import com.cognixia.common.LocalDateTimeSerializer;
 import com.cognixia.common.exception.ApplicationNotFoundException;
 import com.cognixia.model.Application;
 import com.cognixia.repository.ApplicationRepository;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 @Service
 public class ApplicationService {
 	private ApplicationRepository applicationRepository;
-
+	
 	private UsersService usersService;
 	
+	private UploadGateway gateway;
+	
 	@Autowired
-	public ApplicationService(ApplicationRepository applicationRepository, @Lazy UsersService usersService) {
+	public ApplicationService(ApplicationRepository applicationRepository, UploadGateway gateway, @Lazy UsersService usersService) {
 		this.applicationRepository = applicationRepository;
 		this.usersService = usersService;
+		this.gateway = gateway;
 	}
 	
 	
@@ -51,4 +64,23 @@ public class ApplicationService {
 		}
 		return application;
 	}
+	
+	// write all applications to file
+	public boolean writeToFileAndUpload() {
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter("submissions.json"))){
+			GsonBuilder gsonBuilder = new GsonBuilder();
+			gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateSerializer());
+			gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer());
+			Gson gson = gsonBuilder.setPrettyPrinting().create();
+			List<Application> appList = getAllApplications();
+			gson.toJson(appList, bw);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		gateway.upload(new File("submissions.json"));
+		return true;	
+	}
+
 }
