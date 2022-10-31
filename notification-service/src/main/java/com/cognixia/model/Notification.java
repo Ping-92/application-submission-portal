@@ -16,21 +16,35 @@ public class Notification {
 	private String receipientEmail;
 	private LocalDateTime notificationSent;
 
+	private int applicationId;
 	private Application application;
 
 	public Notification() {
 
 	}
-
+	
 	public Notification(int notificationId, String message, String receipientEmail, LocalDateTime notificationSent,
-			Application application) {
+			int applicationId, Application application) {
 		super();
 		this.notificationId = notificationId;
 		this.message = message;
 		this.receipientEmail = receipientEmail;
 		this.notificationSent = notificationSent;
+		this.applicationId = applicationId;
 		this.application = application;
 	}
+
+	public int getApplicationId() {
+		return applicationId;
+	}
+
+
+
+	public void setApplicationId(int applicationId) {
+		this.applicationId = applicationId;
+	}
+
+
 
 	public int getNotificationId() {
 		return notificationId;
