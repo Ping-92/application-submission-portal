@@ -34,7 +34,8 @@ public class Application {
 	
 	private LocalDateTime submissionDateTime;
 	private String applicationStatus;
-	
+	private int userId;
+
 	@Transient
 	private Users user;
 	
@@ -125,5 +126,13 @@ public class Application {
 
 	public void setApplicationStatus(String applicationStatus) {
 		this.applicationStatus = applicationStatus;
+	}
+	
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 }
