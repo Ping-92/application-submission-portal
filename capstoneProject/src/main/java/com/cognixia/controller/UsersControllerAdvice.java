@@ -12,7 +12,8 @@ import com.cognixia.model.ErrorResponse;
 public class UsersControllerAdvice {
 
 	@ExceptionHandler(UsersNotFoundException.class)
-	public ResponseEntity<ErrorResponse> usersNotFoundException (UsersNotFoundException e){
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("UserService-404", "User(s) not found!" ));
+	public ResponseEntity<ErrorResponse> usersNotFoundException(UsersNotFoundException e) {
+		return ResponseEntity.status(HttpStatus.NOT_FOUND)
+				.body(new ErrorResponse("UserService-404", "User(s) not found!"));
 	}
 }
