@@ -64,6 +64,4 @@ public class Users {
 		this.mobilePhone = mobilePhone;
 		this.lastLogin = lastLogin;
 	}
-	
-
 }
