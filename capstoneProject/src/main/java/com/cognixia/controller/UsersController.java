@@ -46,5 +46,8 @@ public class UsersController {
 			return ResponseEntity.ok(user);
 		}
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> refs/remotes/origin/users
 }
