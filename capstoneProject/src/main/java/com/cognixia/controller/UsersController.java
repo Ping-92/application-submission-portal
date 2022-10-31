@@ -46,4 +46,9 @@ public class UsersController {
 			return ResponseEntity.ok(user);
 		}
 	}
+	
+	@GetMapping("/current_user")
+	public ResponseEntity<Integer> getCurrentUserId(){
+		return ResponseEntity.ok(usersService.getCurrentUserId());
+	}
 }
