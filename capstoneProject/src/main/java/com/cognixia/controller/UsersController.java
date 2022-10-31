@@ -46,8 +46,9 @@ public class UsersController {
 			return ResponseEntity.ok(user);
 		}
 	}
-<<<<<<< HEAD
-
-=======
->>>>>>> refs/remotes/origin/users
+	
+	@GetMapping("/current_user")
+	public ResponseEntity<Integer> getCurrentUserId(){
+		return ResponseEntity.ok(usersService.getCurrentUserId());
+	}
 }

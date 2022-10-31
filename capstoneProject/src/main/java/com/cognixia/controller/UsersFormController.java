@@ -23,11 +23,6 @@ public class UsersFormController implements WebMvcConfigurer {
 	@Autowired
 	UsersService usersService;
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> refs/remotes/origin/users
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/results").setViewName("results");
@@ -62,9 +57,5 @@ public class UsersFormController implements WebMvcConfigurer {
 		} else {
 			return "loginFail";
 		}
-<<<<<<< HEAD
 	}
-
-=======
->>>>>>> refs/remotes/origin/users
 }
