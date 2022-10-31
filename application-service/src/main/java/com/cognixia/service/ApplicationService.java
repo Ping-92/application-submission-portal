@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.cognixia.common.exception.ApplicationNotFoundException;
 import com.cognixia.model.Application;
-import com.cognixia.model.Users;
 import com.cognixia.repository.ApplicationRepository;
 
 @Service
@@ -40,7 +39,6 @@ public class ApplicationService {
 		application.setApplicationStatus("Submitted");
 		int userId = usersService.getCurrentUserId();
 		application.setUserId(userId);
-		System.out.println(usersService.getUserById(userId));
 		application.setUser(usersService.getUserById(userId));
 		return applicationRepository.save(application);
 	}
