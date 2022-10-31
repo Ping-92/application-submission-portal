@@ -18,28 +18,27 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.cognixia.model.Users;
 import com.cognixia.service.UsersService;
 
-
-
 @RestController
 @RequestMapping("/users")
 public class UsersController {
 	@Autowired
 	UsersService usersService;
-	
+
 	@GetMapping
-	public ResponseEntity<List<Users>> getAllUser(){
+	public ResponseEntity<List<Users>> getAllUser() {
 		return ResponseEntity.ok(usersService.getAllUser());
 	}
+
 	@PostMapping("/user")
-	public ResponseEntity<Users> addUser(@RequestBody @Valid Users user){
+	public ResponseEntity<Users> addUser(@RequestBody @Valid Users user) {
 		Users newUser = usersService.addUser(user);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(newUser.getUserId()).toUri();
 		return ResponseEntity.created(location).build();
 	}
-	
+
 	@GetMapping("/user/{id}")
-	public ResponseEntity<Users> getUserById(@PathVariable("id") int id ){
+	public ResponseEntity<Users> getUserById(@PathVariable("id") int id) {
 		Users user = usersService.getUserById(id);
 		if (user == null) {
 			return ResponseEntity.notFound().build();
@@ -47,6 +46,5 @@ public class UsersController {
 			return ResponseEntity.ok(user);
 		}
 	}
-	
-  
+
 }
