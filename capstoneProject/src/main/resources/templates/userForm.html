@@ -2,13 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>User Form</title>
-<style>
-div {
-	position: absolute;
-	margin-top: 300px;
-	margin-left: 45%
-}
-</style>
 </head>
 <body style="background-color: powderblue;">
     <h1>User Form</h1>
@@ -17,19 +10,19 @@ div {
 
             <table>
                 <tr >
-                    <td>*Name:</td>
+                    <td>Name:</td>
                     <td><input type="text" th:field="*{userName}" required/></td>
                 </tr>
                 <tr>
-                    <td>*Password:</td>
+                    <td>Password:</td>
                     <td><input type="password" th:field="*{password}" required/></td>
                 </tr>
                 <tr>
-                    <td>*Email:</td>
+                    <td>Email:</td>
                     <td><input type="email" th:field="*{email}" id="email" required/></td>
                 </tr>
                 <tr>
-                    <td>*Mobile Number:</td>
+                    <td>Phone Number:</td>
                     <td><input type="tel" th:field="*{mobilePhone}" required/></td>
                 </tr>
                 
