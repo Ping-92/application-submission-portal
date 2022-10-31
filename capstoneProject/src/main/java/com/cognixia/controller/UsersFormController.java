@@ -23,7 +23,10 @@ public class UsersFormController implements WebMvcConfigurer {
 	@Autowired
 	UsersService usersService;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'users' of https://github.com/Ping-92/application-submission-portal.git
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/results").setViewName("results");
@@ -60,6 +63,4 @@ public class UsersFormController implements WebMvcConfigurer {
 		}
 
 	}
-
-
 }

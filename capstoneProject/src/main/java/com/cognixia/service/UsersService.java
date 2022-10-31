@@ -40,11 +40,13 @@ public class UsersService {
 		
 	}
 
-	
 	public boolean insertCurrentUser(Users user) {
 		jdbcTemplate.update("DELETE FROM login_user");
 		jdbcTemplate.update("INSERT INTO login_user VALUES (?)", user.getUserId());
 		return true;
 	}
-
+	
+	public int getCurrentUserId() {
+		return jdbcTemplate.queryForObject("SELECT * FROM login_user", Integer.class);
+	}
 }
