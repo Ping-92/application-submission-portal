@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -66,6 +68,7 @@ public class ApplicationService {
 	}
 	
 	// write all applications to file
+	@Transactional
 	public boolean writeToFileAndUpload() {
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter("submissions.json"))){
 			GsonBuilder gsonBuilder = new GsonBuilder();
@@ -80,6 +83,8 @@ public class ApplicationService {
 			return false;
 		}
 		gateway.upload(new File("submissions.json"));
+		
+		applicationRepository.truncateApplicationTable();
 		return true;	
 	}
 
