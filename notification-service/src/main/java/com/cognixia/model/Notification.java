@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 public class Notification {
@@ -17,6 +18,8 @@ public class Notification {
 	private LocalDateTime notificationSent;
 
 	private int applicationId;
+	
+	@Transient
 	private Application application;
 
 	public Notification() {
