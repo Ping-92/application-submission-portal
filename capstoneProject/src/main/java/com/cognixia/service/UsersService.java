@@ -44,4 +44,8 @@ public class UsersService {
 		jdbcTemplate.update("INSERT INTO login_user VALUES (?)", user.getUserId());
 		return true;
 	}
+	
+	public int getCurrentUserId() {
+		return jdbcTemplate.queryForObject("SELECT * FROM login_user", Integer.class);
+	}
 }
