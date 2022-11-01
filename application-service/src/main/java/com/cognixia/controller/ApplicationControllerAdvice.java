@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.cognixia.common.ErrorResponse;
+import com.cognixia.common.exception.ApplicationIDMismatchException;
 import com.cognixia.common.exception.ApplicationNotFoundException;
+
 
 @RestControllerAdvice
 public class ApplicationControllerAdvice {
@@ -16,4 +18,8 @@ public class ApplicationControllerAdvice {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("ApplicationService-404", "Application(s) not found!" ));
 	}
 	
+	@ExceptionHandler(ApplicationIDMismatchException.class)
+	public ResponseEntity<ErrorResponse> handleEmsIDMismatchException(ApplicationIDMismatchException e) {
+		return ResponseEntity.badRequest().body(new ErrorResponse("APP-400", e.getMessage()));
+	}
 }
