@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,6 +13,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.integration.config.EnableIntegration;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.cognixia.model.Application;
 import com.cognixia.service.ApplicationService;
@@ -26,22 +28,32 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 @EnableFeignClients
 public class ApplicationServiceApplication {
 
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+
 	public static void main(String[] args) {
 		SpringApplication.run(ApplicationServiceApplication.class, args);
 	}
-	
+
 	@Bean
 	CommandLineRunner runner(ApplicationService applicationService) {
 		return args -> {
 			// read json and write to db
-			ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());;
-			TypeReference<List<Application>> typeReference = new TypeReference<List<Application>>() {};
+			ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
+			;
+			TypeReference<List<Application>> typeReference = new TypeReference<List<Application>>() {
+			};
 			InputStream inputStream = TypeReference.class.getResourceAsStream("/submissions.json");
 			try {
 				List<Application> applications = mapper.readValue(inputStream, typeReference);
-				applicationService.save(applications);
+				for (Application a : applications) {
+					jdbcTemplate.update("INSERT INTO perm_application VALUES (?,?,?,?,?,?,?,?,?)", a.getApplicationId(),
+							a.getApplicationStatus(), a.getCountryOfBirth(), a.getDateOfBirth(), a.getName(),
+							a.getRace(), a.getSubmissionDateTime(), a.getUserId(), a.getVaccinationStatus());
+
+				}
 				System.out.println("Applications Saved In Perm");
-			} catch(IOException e) {
+			} catch (IOException e) {
 				System.out.println("Unable to save applications: " + e.getMessage());
 			}
 		};
