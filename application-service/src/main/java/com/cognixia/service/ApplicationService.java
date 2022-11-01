@@ -15,13 +15,13 @@ import org.springframework.stereotype.Service;
 
 
 import com.cognixia.SftpConfig.UploadGateway;
-import com.cognixia.common.LocalDateSerializer;
-import com.cognixia.common.LocalDateTimeSerializer;
+//import com.cognixia.common.LocalDateSerializer;
+//import com.cognixia.common.LocalDateTimeSerializer;
 import com.cognixia.common.exception.ApplicationNotFoundException;
 import com.cognixia.model.Application;
 import com.cognixia.repository.ApplicationRepository;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+//import com.google.gson.Gson;
+//import com.google.gson.GsonBuilder;
 
 @Service
 public class ApplicationService {
@@ -68,37 +68,38 @@ public class ApplicationService {
 	}
 	
 	// write all applications to file
-	@Transactional
-	public boolean writeToFileAndUpload() {
-		try (BufferedWriter bw = new BufferedWriter(new FileWriter("submissions.json"))){
-			GsonBuilder gsonBuilder = new GsonBuilder();
-			gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateSerializer());
-			gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer());
-			Gson gson = gsonBuilder.setPrettyPrinting().create();
-			List<Application> appList = getAllApplications();
-			gson.toJson(appList, bw);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-		gateway.upload(new File("submissions.json"));
-		
-		applicationRepository.truncateApplicationTable();
-		return true;	
-	}
+//	@Transactional
+//	public boolean writeToFileAndUpload() {
+//		try (BufferedWriter bw = new BufferedWriter(new FileWriter("submissions.json"))){
+//			GsonBuilder gsonBuilder = new GsonBuilder();
+//			gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateSerializer());
+//			gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer());
+//			Gson gson = gsonBuilder.setPrettyPrinting().create();
+//			List<Application> appList = getAllApplications();
+//			gson.toJson(appList, bw);
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return false;
+//		}
+//		gateway.upload(new File("submissions.json"));
+//		
+//		applicationRepository.truncateApplicationTable();
+//		return true;	
+//	}
+	
 	// Read From JSON Related
-	public Iterable<Application> listFromJson(){
-		return applicationRepository.findAll();
-	}
-	
-	public Application save(Application application) {
-		return applicationRepository.save(application);
-	}
-	
-	public Iterable<Application> save(List<Application> applications) {
-		return applicationRepository.saveAll(applications);
-	}
+//	public Iterable<Application> listFromJson(){
+//		return applicationRepository.findAll();
+//	}
+//	
+//	public Application save(Application application) {
+//		return applicationRepository.save(application);
+//	}
+//	
+//	public Iterable<Application> save(List<Application> applications) {
+//		return applicationRepository.saveAll(applications);
+//	}
 
 
 }
