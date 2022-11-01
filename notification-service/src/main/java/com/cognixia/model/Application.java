@@ -1,36 +1,24 @@
 package com.cognixia.model;
 
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-@Entity
 public class Application {
-	@Id
-	@GeneratedValue
 	private int applicationId;
 	
-	@NotNull
 	private String name;
 	
-	@NotNull
 	private String race;
 	
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private LocalDate dateOfBirth;
 	
-	@NotNull
 	private String countryOfBirth;
 	
-	@NotNull
 	private String vaccinationStatus;
 	
 	private LocalDateTime submissionDateTime;

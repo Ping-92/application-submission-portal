@@ -1,6 +1,5 @@
 package com.cognixia.model;
 
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -13,7 +12,8 @@ import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-public class Application {
+public class PermApplication {
+	
 	@Id
 	@GeneratedValue
 	private int applicationId;
@@ -40,9 +40,9 @@ public class Application {
 	@Transient
 	private Users user;
 	
-	public Application() {}
+	public PermApplication() {}
 
-	public Application(int applicationId, String name, String race, LocalDate dateOfBirth,
+	public PermApplication(int applicationId, String name, String race, LocalDate dateOfBirth,
 			String countryOfBirth, String vaccinationStatus, LocalDateTime submissionDateTime, String applicationStatus,
 			Users user) {
 		super();
