@@ -27,20 +27,20 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 @EnableEurekaClient
 @EnableFeignClients
 public class ApplicationServiceApplication {
-
+	
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
-
+	JdbcTemplate jdbcTemplate;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(ApplicationServiceApplication.class, args);
 	}
 
+	// for reading from JSON File.
 	@Bean
 	CommandLineRunner runner(ApplicationService applicationService) {
 		return args -> {
 			// read json and write to db
 			ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
-			;
 			TypeReference<List<Application>> typeReference = new TypeReference<List<Application>>() {
 			};
 			InputStream inputStream = TypeReference.class.getResourceAsStream("/submissions.json");

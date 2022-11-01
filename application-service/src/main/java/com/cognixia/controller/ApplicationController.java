@@ -55,6 +55,7 @@ public class ApplicationController {
 			return ResponseEntity.notFound().build(); 
 	}
 	
+	
 	// JSON Reading Related
 	@GetMapping("/listfromjson") 
 	public Iterable<Application> listFromJson(){
