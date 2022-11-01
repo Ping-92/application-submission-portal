@@ -46,4 +46,12 @@ public class ApplicationController {
 			return ResponseEntity.ok(application);
 		}
 	}
+	
+	@GetMapping("/writetofile")
+	public ResponseEntity<String> writeToFileAndUpload(){
+		if(applicationService.writeToFileAndUpload()) 
+			return ResponseEntity.ok("Written to json file. File upload completed");
+		else
+			return ResponseEntity.notFound().build(); 
+	}
 }
