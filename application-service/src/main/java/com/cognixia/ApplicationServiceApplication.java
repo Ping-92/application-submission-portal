@@ -28,35 +28,35 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 @EnableFeignClients
 public class ApplicationServiceApplication {
 	
-	@Autowired
-	JdbcTemplate jdbcTemplate;
+//	@Autowired
+//	JdbcTemplate jdbcTemplate;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(ApplicationServiceApplication.class, args);
 	}
 
 	// for reading from JSON File.
-	@Bean
-	CommandLineRunner runner(ApplicationService applicationService) {
-		return args -> {
-			// read json and write to db
-			ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
-			TypeReference<List<Application>> typeReference = new TypeReference<List<Application>>() {
-			};
-			InputStream inputStream = TypeReference.class.getResourceAsStream("/submissions.json");
-			try {
-				List<Application> applications = mapper.readValue(inputStream, typeReference);
-				for (Application a : applications) {
-					jdbcTemplate.update("INSERT INTO perm_application VALUES (?,?,?,?,?,?,?,?,?)", a.getApplicationId(),
-							a.getApplicationStatus(), a.getCountryOfBirth(), a.getDateOfBirth(), a.getName(),
-							a.getRace(), a.getSubmissionDateTime(), a.getUserId(), a.getVaccinationStatus());
-
-				}
-				System.out.println("Applications Saved In Perm");
-			} catch (IOException e) {
-				System.out.println("Unable to save applications: " + e.getMessage());
-			}
-		};
-	}
+//	@Bean
+//	CommandLineRunner runner(ApplicationService applicationService) {
+//		return args -> {
+//			// read json and write to db
+//			ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
+//			TypeReference<List<Application>> typeReference = new TypeReference<List<Application>>() {
+//			};
+//			InputStream inputStream = TypeReference.class.getResourceAsStream("/submissions.json");
+//			try {
+//				List<Application> applications = mapper.readValue(inputStream, typeReference);
+//				for (Application a : applications) {
+//					jdbcTemplate.update("INSERT INTO perm_application VALUES (?,?,?,?,?,?,?,?,?)", a.getApplicationId(),
+//							a.getApplicationStatus(), a.getCountryOfBirth(), a.getDateOfBirth(), a.getName(),
+//							a.getRace(), a.getSubmissionDateTime(), a.getUserId(), a.getVaccinationStatus());
+//
+//				}
+//				System.out.println("Applications Saved In Perm");
+//			} catch (IOException e) {
+//				System.out.println("Unable to save applications: " + e.getMessage());
+//			}
+//		};
+//	}
 
 }

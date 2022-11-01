@@ -47,18 +47,18 @@ public class ApplicationController {
 		}
 	}
 	
-	@GetMapping("/writetofile")
-	public ResponseEntity<String> writeToFileAndUpload(){
-		if(applicationService.writeToFileAndUpload()) 
-			return ResponseEntity.ok("Written to json file. File upload completed");
-		else
-			return ResponseEntity.notFound().build(); 
-	}
-	
+//	@GetMapping("/writetofile")
+//	public ResponseEntity<String> writeToFileAndUpload(){
+//		if(applicationService.writeToFileAndUpload()) 
+//			return ResponseEntity.ok("Written to json file. File upload completed");
+//		else
+//			return ResponseEntity.notFound().build(); 
+//	}
+//	
 	
 	// JSON Reading Related
-	@GetMapping("/listfromjson") 
-	public Iterable<Application> listFromJson(){
-		return applicationService.listFromJson();
-	}
+//	@GetMapping("/listfromjson") 
+//	public Iterable<Application> listFromJson(){
+//		return applicationService.listFromJson();
+//	}
 }
