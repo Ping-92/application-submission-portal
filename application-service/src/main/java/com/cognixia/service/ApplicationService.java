@@ -87,5 +87,18 @@ public class ApplicationService {
 		applicationRepository.truncateApplicationTable();
 		return true;	
 	}
+	// Read From JSON Related
+	public Iterable<Application> listFromJson(){
+		return applicationRepository.findAll();
+	}
+	
+	public Application save(Application application) {
+		return applicationRepository.save(application);
+	}
+	
+	public Iterable<Application> save(List<Application> applications) {
+		return applicationRepository.saveAll(applications);
+	}
+
 
 }
