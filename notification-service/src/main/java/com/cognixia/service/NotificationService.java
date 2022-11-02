@@ -20,18 +20,20 @@ public class NotificationService {
 	@Autowired
 	NotificationRepository notificationRepository;
 	
-	PermApplicationService permApplicationService;
+	@Autowired
+	ApplicationService applicationService;
 	
 	@Autowired
 	private JavaMailSender javaMailSender;
 	
 	@Value("${spring.mail.username}")
 	private String sender;
+	
 
 	// To send a simple email
 	public String sendMail() {
 
-		List<PermApplication> retrieveAllAppliactionsList = permApplicationService.getAllPermApplications();
+		List<PermApplication> retrieveAllAppliactionsList = applicationService.getAllPermApplications();
 		List<PermApplication> listToSendEmail = new ArrayList<PermApplication>();
 
 		for (PermApplication a : retrieveAllAppliactionsList) {
@@ -56,7 +58,7 @@ public class NotificationService {
 					// Sending the mail
 					javaMailSender.send(mailMessage);
 					a.setApplicationStatus("Processed-EmailSent");
-					permApplicationService.updatePermApplication(a);
+					applicationService.updatePermApplication(a.getApplicationId(), a);
 					addNotification(a);
 					return "Mail Sent Successfully...";
 				}
@@ -64,7 +66,7 @@ public class NotificationService {
 				// Catch block to handle the exceptions
 				catch (Exception e) {
 					a.setApplicationStatus("Processed-EmailError");
-					permApplicationService.updatePermApplication(a);
+					applicationService.updatePermApplication(a.getApplicationId(), a);
 					System.out.println(e.getMessage());
 					return "Error while Sending Mail";
 				}
