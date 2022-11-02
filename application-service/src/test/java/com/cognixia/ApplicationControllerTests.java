@@ -8,64 +8,47 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+
 import org.springframework.test.web.servlet.MockMvc;
 
 @AutoConfigureMockMvc
 @SpringBootTest
-public class UsersFormControllerTests {
+public class ApplicationControllerTests {
+
 	@Autowired
 	MockMvc mvc;
 
 	@Test
-
-	public void showUserForm() {
+	public void getAllApplications() {
 		try {
-			mvc.perform(get("/users/userpage")).andExpect(status().is(200)).andDo(print());
+			mvc.perform(get("/application")).andExpect(status().is(200)).andDo(print());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Test
-	public void showLoginForm() {
+	public void verfiyNotFoundUsers() {
 		try {
-			mvc.perform(get("/users/login")).andExpect(status().is(200)).andDo(print());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void showRegisterForm() {
-		try {
-			mvc.perform(get("/users/userpage")).andExpect(status().is(200)).andDo(print());
+			mvc.perform(get("/applications")).andExpect(status().is(404)).andDo(print());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Test
-	public void verfiyNotFoundRegisterForm() {
+	public void getApplicationById() {
 		try {
-			mvc.perform(get("/user/userpage")).andExpect(status().is(404)).andDo(print());
+			mvc.perform(get("/application/applicant/1")).andExpect(status().is(200)).andDo(print());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Test
-	public void showLogin() {
+	public void verfiyNotFoundApplicationId() {
 		try {
-			mvc.perform(get("/users/login")).andExpect(status().is(200)).andDo(print());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Test
-	public void verfiyNotFoundLogin() {
-		try {
-			mvc.perform(get("/user/login")).andExpect(status().is(404)).andDo(print());
-
+			mvc.perform(get("/application/applicant/232")).andExpect(status().is(404)).andDo(print());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
