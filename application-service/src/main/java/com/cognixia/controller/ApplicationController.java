@@ -92,11 +92,11 @@ public class ApplicationController {
 		}
 	}
 	
-	// SFTP file upload
-	@GetMapping("/fileupload")
+	 //truncate table
+	@GetMapping("/truncate")
 	public ResponseEntity<String> fileUpload(){
-		if(applicationService.fileUpload()) 
-			return ResponseEntity.ok("JSON File upload completed");
+		if(applicationService.removeAllApplication()) 
+			return ResponseEntity.ok("Truncated Table...");
 		else
 			return ResponseEntity.notFound().build(); 
 	}

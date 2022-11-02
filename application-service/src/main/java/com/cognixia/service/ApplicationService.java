@@ -1,15 +1,11 @@
 package com.cognixia.service;
 
-//import java.io.BufferedWriter;
-import java.io.File;
-//import java.io.FileWriter;
-//import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.transaction.Transactional;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameter;
@@ -22,18 +18,15 @@ import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.cognixia.SftpConfig.UploadGateway;
-//import com.cognixia.common.LocalDateSerializer;
-//import com.cognixia.common.LocalDateTimeSerializer;
 import com.cognixia.common.exception.ApplicationNotFoundException;
 import com.cognixia.model.Application;
 import com.cognixia.model.PermApplication;
 import com.cognixia.repository.ApplicationRepository;
 import com.cognixia.repository.PermApplicationRepository;
-//import com.google.gson.Gson;
-//import com.google.gson.GsonBuilder;
 
 @Service
 public class ApplicationService {
@@ -42,8 +35,6 @@ public class ApplicationService {
 	private PermApplicationRepository permApplicationRepository;
 	
 	private UsersService usersService;
-	
-	private UploadGateway gateway;
 	
 	@Autowired
 	private JobLauncher jobLauncher;
@@ -60,11 +51,10 @@ public class ApplicationService {
 	
 	@Autowired
 	public ApplicationService(
-			ApplicationRepository applicationRepository, PermApplicationRepository permApplicationRepository, 
-			UploadGateway gateway, @Lazy UsersService usersService) {
+			ApplicationRepository applicationRepository, PermApplicationRepository permApplicationRepository,
+			@Lazy UsersService usersService) {
 		this.applicationRepository = applicationRepository;
 		this.usersService = usersService;
-		this.gateway = gateway;
 		this.permApplicationRepository = permApplicationRepository;
 	}
 	
@@ -131,12 +121,10 @@ public class ApplicationService {
 		return false;
 	}
 	
-	// upload file to sftp and truncate table
+	// truncate table
 	@Transactional
-	public boolean fileUpload() {
-		ClassLoader classLoader = getClass().getClassLoader();
-		gateway.upload(new File(classLoader.getResource("submissions.json").getFile()));
-		
+	@Scheduled(cron = "0 24 20 1/1 * ?")
+	public boolean removeAllApplication() {
 		applicationRepository.truncateApplicationTable();
 		return true;	
 	}
@@ -170,25 +158,4 @@ public class ApplicationService {
 	}
 	
 	// end of PermApplication methods
-	
-	// write all applications to file
-//	@Transactional
-//	public boolean writeToFileAndUpload() {
-//		try (BufferedWriter bw = new BufferedWriter(new FileWriter("submissions.json"))){
-//			GsonBuilder gsonBuilder = new GsonBuilder();
-//			gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateSerializer());
-//			gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer());
-//			Gson gson = gsonBuilder.setPrettyPrinting().create();
-//			List<Application> appList = getAllApplications();
-//			gson.toJson(appList, bw);
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return false;
-//		}
-//		gateway.upload(new File("submissions.json"));
-//		
-//		applicationRepository.truncateApplicationTable();
-//		return true;	
-//	}
 }
