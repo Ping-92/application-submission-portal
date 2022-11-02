@@ -1,6 +1,7 @@
 package com.cognixia.service;
 
 
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -38,7 +39,8 @@ public class UsersService {
 	public Users validateUserandPassword(Users user) {
 		return userRepository.findByUserNameAndPassword(user.getUserName(), user.getPassword());
 		
-	}	
+	}
+
 	public boolean insertCurrentUser(Users user) {
 		jdbcTemplate.update("DELETE FROM login_user");
 		jdbcTemplate.update("INSERT INTO login_user VALUES (?)", user.getUserId());
