@@ -8,7 +8,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import com.cognixia.model.Application;
+import com.cognixia.model.PermApplication;
 import com.cognixia.model.Notification;
 import com.cognixia.repository.NotificationRepository;
 
@@ -19,7 +19,7 @@ public class NotificationService {
 	NotificationRepository notificationRepository;
 	
 	@Autowired
-	ApplicationService applicationService;
+	PermApplicationService permApplicationService;
 	
 	@Autowired
 	private JavaMailSender javaMailSender;
@@ -32,7 +32,6 @@ public class NotificationService {
 
 		// Try block to check for exceptions
 		try {
-
 			// Creating a simple mail message
 			SimpleMailMessage mailMessage = new SimpleMailMessage();
 
@@ -56,7 +55,7 @@ public class NotificationService {
 	
 	public Notification addNotification(Notification notification) {
 		Notification savedNotification = notificationRepository.save(notification);
-		Application application = savedNotification.getApplication();
+		PermApplication application = savedNotification.getApplication();
 		savedNotification.setApplicationId(application.getApplicationId());
 		savedNotification.setReceipientEmail(application.getUser().getEmail());
 		return savedNotification;

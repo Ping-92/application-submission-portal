@@ -20,14 +20,14 @@ public class Notification {
 	private int applicationId;
 	
 	@Transient
-	private Application application;
+	private PermApplication application;
 
 	public Notification() {
 
 	}
 	
 	public Notification(int notificationId, String message, String receipientEmail, LocalDateTime notificationSent,
-			int applicationId, Application application) {
+			int applicationId, PermApplication application) {
 		super();
 		this.notificationId = notificationId;
 		this.message = message;
@@ -81,11 +81,11 @@ public class Notification {
 		this.notificationSent = notificationSent;
 	}
 
-	public Application getApplication() {
+	public PermApplication getApplication() {
 		return application;
 	}
 
-	public void setApplication(Application application) {
+	public void setApplication(PermApplication application) {
 		this.application = application;
 	}
 

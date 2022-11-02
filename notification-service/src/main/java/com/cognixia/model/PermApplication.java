@@ -7,7 +7,7 @@ import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-public class Application {
+public class PermApplication {
 	private int applicationId;
 	
 	private String name;
@@ -28,9 +28,9 @@ public class Application {
 	@Transient
 	private Users user;
 	
-	public Application() {}
+	public PermApplication() {}
 
-	public Application(int applicationId, String name, String race, LocalDate dateOfBirth,
+	public PermApplication(int applicationId, String name, String race, LocalDate dateOfBirth,
 			String countryOfBirth, String vaccinationStatus, LocalDateTime submissionDateTime, String applicationStatus,
 			Users user) {
 		super();
