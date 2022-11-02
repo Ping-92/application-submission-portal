@@ -1,49 +1,26 @@
 package com.cognixia.model;
 
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-
-@Entity
 public class Application {
-	@Id
-	@GeneratedValue
 	private int applicationId;
 	
-	@NotNull
 	private String name;
 	
-	@NotNull
 	private String race;
 	
 	@DateTimeFormat(pattern="yyyy-MM-dd")
-	@JsonDeserialize(using = LocalDateDeserializer.class)  
-	@JsonSerialize(using = LocalDateSerializer.class)  
 	private LocalDate dateOfBirth;
 	
-	@NotNull
 	private String countryOfBirth;
 	
-	@NotNull
 	private String vaccinationStatus;
 	
-	@JsonDeserialize(using = LocalDateTimeDeserializer.class)  
-	@JsonSerialize(using = LocalDateTimeSerializer.class)  
 	private LocalDateTime submissionDateTime;
 	private String applicationStatus;
 	private int userId;

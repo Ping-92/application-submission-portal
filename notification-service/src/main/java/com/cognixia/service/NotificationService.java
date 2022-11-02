@@ -1,11 +1,14 @@
 package com.cognixia.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import com.cognixia.model.Application;
 import com.cognixia.model.Notification;
 import com.cognixia.repository.NotificationRepository;
 
@@ -14,6 +17,9 @@ public class NotificationService {
 	
 	@Autowired
 	NotificationRepository notificationRepository;
+	
+	@Autowired
+	ApplicationService applicationService;
 	
 	@Autowired
 	private JavaMailSender javaMailSender;
@@ -49,6 +55,10 @@ public class NotificationService {
 	}
 	
 	public Notification addNotification(Notification notification) {
-		return notificationRepository.save(notification);
+		Notification savedNotification = notificationRepository.save(notification);
+		Application application = savedNotification.getApplication();
+		savedNotification.setApplicationId(application.getApplicationId());
+		savedNotification.setReceipientEmail(application.getUser().getEmail());
+		return savedNotification;
 	}
 }

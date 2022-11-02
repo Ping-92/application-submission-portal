@@ -5,28 +5,49 @@ import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 public class Notification {
-	
+
 	@Id
 	@GeneratedValue
 	private int notificationId;
 	private String message;
 	private String receipientEmail;
 	private LocalDateTime notificationSent;
-	
-	public Notification() {
-		
-	}
 
-	public Notification(int notificationId, String message, String receipientEmail, LocalDateTime notificationSent) {
+	private int applicationId;
+	
+	@Transient
+	private Application application;
+
+	public Notification() {
+
+	}
+	
+	public Notification(int notificationId, String message, String receipientEmail, LocalDateTime notificationSent,
+			int applicationId, Application application) {
 		super();
 		this.notificationId = notificationId;
 		this.message = message;
 		this.receipientEmail = receipientEmail;
 		this.notificationSent = notificationSent;
+		this.applicationId = applicationId;
+		this.application = application;
 	}
+
+	public int getApplicationId() {
+		return applicationId;
+	}
+
+
+
+	public void setApplicationId(int applicationId) {
+		this.applicationId = applicationId;
+	}
+
+
 
 	public int getNotificationId() {
 		return notificationId;
@@ -58,6 +79,14 @@ public class Notification {
 
 	public void setNotificationSent(LocalDateTime notificationSent) {
 		this.notificationSent = notificationSent;
+	}
+
+	public Application getApplication() {
+		return application;
+	}
+
+	public void setApplication(Application application) {
+		this.application = application;
 	}
 
 }
