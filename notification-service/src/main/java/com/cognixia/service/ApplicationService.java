@@ -18,14 +18,14 @@ import com.cognixia.model.PermApplication;
 public interface ApplicationService {
 	
 	// get all permApplication
-	@GetMapping("/permapplication/")
+	@GetMapping("/application/permapplication/")
 	public List<PermApplication> getAllPermApplications();
 	
 	// get by permApplication Id
-	@GetMapping("/permapplication/{applicationid}")
+	@GetMapping("/application/permapplication/{applicationid}")
 	public PermApplication getPermApplicationById(@PathVariable("applicationid") int applicationId);
 	
 	// update permApplication
-	@PutMapping("/permapplication/{applicationid}")
+	@PutMapping("/application/permapplication/{applicationid}")
 	public PermApplication updatePermApplication(@PathVariable int applicationid, @Valid @RequestBody PermApplication permApplication);
 }

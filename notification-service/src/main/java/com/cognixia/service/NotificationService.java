@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -60,7 +61,6 @@ public class NotificationService {
 					a.setApplicationStatus("Processed-EmailSent");
 					applicationService.updatePermApplication(a.getApplicationId(), a);
 					addNotification(a);
-					return "Mail Sent Successfully...";
 				}
 
 				// Catch block to handle the exceptions
@@ -68,7 +68,6 @@ public class NotificationService {
 					a.setApplicationStatus("Processed-EmailError");
 					applicationService.updatePermApplication(a.getApplicationId(), a);
 					System.out.println(e.getMessage());
-					return "Error while Sending Mail";
 				}
 			}
 		} else {
@@ -84,6 +83,12 @@ public class NotificationService {
 		newNotification.setMessage("Application has been successfully processed!");
 		newNotification.setNotificationSent(LocalDateTime.now());
 		newNotification.setReceipientEmail(permApplication.getUser().getEmail());
+		notificationRepository.save(newNotification);
 		return newNotification;
 	}
+
+	public List<Notification> getMail() {
+		return notificationRepository.findAll();
+	}
+
 }
