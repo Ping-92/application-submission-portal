@@ -6,13 +6,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.time.LocalDateTime;
-
-import javax.ws.rs.core.MediaType;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.cognixia.model.Users;
@@ -22,7 +20,6 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 @AutoConfigureMockMvc
 @SpringBootTest
-
 public class UsersControllerTests {
 
 	@Autowired
@@ -38,13 +35,16 @@ public class UsersControllerTests {
 	}
 
 	@Test
+	public void verfiyNotFoundUsers() {
+		try {
+			mvc.perform(get("/user")).andExpect(status().is(404)).andDo(print());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
 	public void getUsersByID() {
-
-		Users t = new Users();
-		ObjectMapper om = new ObjectMapper();
-		om.registerModule(new JavaTimeModule());
-		om.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-
 		try {
 			mvc.perform(get("/users/user/1")).andExpect(status().is(200)).andDo(print());
 		} catch (Exception e) {
@@ -53,30 +53,48 @@ public class UsersControllerTests {
 	}
 
 	@Test
-	public void verfiyNotFoundUsers() {
+	public void verfiyNotFoundUserId() {
 		try {
-			mvc.perform(get("/users/user/123")).andExpect(status().is(404)).andDo(print());
+			mvc.perform(get("/users/user/232")).andExpect(status().is(404)).andDo(print());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Test
-	public void addUser() {
-		Users user = new Users();
-		user.setUserName("Testing");
-		user.setPassword("password");
-		user.setMobilePhone("123456");
-		user.setEmail("test@gmail.com");
-		user.setLastLogin(LocalDateTime.now());
+	public void getCurrentUserId() {
+		try {
+			mvc.perform(get("/users/current_user")).andExpect(status().is(200)).andDo(print());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void verfiyNotFoundCurrentUserId() {
+		try {
+			mvc.perform(get("/users/currentuser")).andExpect(status().is(404)).andDo(print());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void addUsers() {
+
+		Users u = new Users();
+
+		u.setUserName("Testing");
+		u.setPassword("Password");
+		u.setMobilePhone("111111");
+		u.setEmail("test@gmail.com");
+		u.setLastLogin(LocalDateTime.now());
 
 		ObjectMapper om = new ObjectMapper();
 		om.registerModule(new JavaTimeModule());
 		om.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
 		try {
-			mvc.perform(
-					post("/users/user").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsString(user)))
+			mvc.perform(post("/users/user").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsString(u)))
 					.andExpect(status().is(201)).andDo(print());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -84,16 +102,25 @@ public class UsersControllerTests {
 	}
 
 	@Test
-    public void getCurrentUserId() {
-		Users t = new Users();
+	public void verfiyaddUsers() {
+
+		Users u = new Users();
+
+		u.setPassword("Password");
+		u.setMobilePhone("111111");
+		u.setEmail("test@gmail.com");
+		u.setLastLogin(LocalDateTime.now());
+
 		ObjectMapper om = new ObjectMapper();
 		om.registerModule(new JavaTimeModule());
 		om.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
 		try {
-			mvc.perform(get("/users/current_user")).andExpect(status().is(200)).andDo(print());
+			mvc.perform(post("/users/user").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsString(u)))
+					.andExpect(status().is(400)).andDo(print());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 	}
 }

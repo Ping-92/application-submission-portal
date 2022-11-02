@@ -2,21 +2,30 @@ package com.cognixia.service;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
-import com.cognixia.model.Application;
+import com.cognixia.model.PermApplication;
 
 @Service
 @FeignClient(name="APPLICATION-SERVICE")
 public interface ApplicationService {
 	
-	@GetMapping("/applicant/{applicationid}")
-	public Application getApplicationById(@PathVariable("applicationid") int applicationId);
+	// get all permApplication
+	@GetMapping("/application/permapplication/")
+	public List<PermApplication> getAllPermApplications();
 	
-	@GetMapping("/applicant")
-	public List<Application> getAllApplications();
+	// get by permApplication Id
+	@GetMapping("/application/permapplication/{applicationid}")
+	public PermApplication getPermApplicationById(@PathVariable("applicationid") int applicationId);
 	
+	// update permApplication
+	@PutMapping("/application/permapplication/{applicationid}")
+	public PermApplication updatePermApplication(@PathVariable int applicationid, @Valid @RequestBody PermApplication permApplication);
 }

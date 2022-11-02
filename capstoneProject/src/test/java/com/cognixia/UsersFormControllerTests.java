@@ -17,6 +17,7 @@ public class UsersFormControllerTests {
 	MockMvc mvc;
 
 	@Test
+
 	public void showUserForm() {
 		try {
 			mvc.perform(get("/users/userpage")).andExpect(status().is(200)).andDo(print());
@@ -29,6 +30,42 @@ public class UsersFormControllerTests {
 	public void showLoginForm() {
 		try {
 			mvc.perform(get("/users/login")).andExpect(status().is(200)).andDo(print());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void showRegisterForm() {
+		try {
+			mvc.perform(get("/users/userpage")).andExpect(status().is(200)).andDo(print());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void verfiyNotFoundRegisterForm() {
+		try {
+			mvc.perform(get("/user/userpage")).andExpect(status().is(404)).andDo(print());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void showLogin() {
+		try {
+			mvc.perform(get("/users/login")).andExpect(status().is(200)).andDo(print());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void verfiyNotFoundLogin() {
+		try {
+			mvc.perform(get("/user/login")).andExpect(status().is(404)).andDo(print());
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
