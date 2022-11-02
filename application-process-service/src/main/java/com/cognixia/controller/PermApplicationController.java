@@ -54,5 +54,15 @@ public class PermApplicationController {
 				return ResponseEntity.ok(updatedPermApplication);
 			}
 		}
+		
+		// Batch Job operation
+		@GetMapping("/job/start/{jobName}")
+		public ResponseEntity<String> startJob(@PathVariable String jobName) {
+			if(permApplicationService.startJob(jobName)) {
+				return ResponseEntity.ok("Job Started.....");
+			} else {
+				return ResponseEntity.badRequest().build();
+			}
+		}
 
 }
