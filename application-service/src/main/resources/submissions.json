@@ -1,5 +1,6 @@
 [
  {
+
   "applicationId" : 1,
   "name" : "1111",
   "race" : "1111",
@@ -21,6 +22,16 @@
   "submissionDateTime" : [ 2022, 10, 31, 11, 47, 38, 852214000 ],
   "applicationStatus" : "Submitted",
   "userId" : 1,
+
+  "applicationId" : 3,
+  "name" : "samantha",
+  "race" : "abc",
+  "dateOfBirth" : [ 1999, 11, 11 ],
+  "countryOfBirth" : "singapore",
+  "vaccinationStatus" : "vaccinated",
+  "submissionDateTime" : [ 2022, 11, 2, 14, 51, 49, 652169000 ],
+  "applicationStatus" : "Submitted",
+  "userId" : 2,
   "user" : null
 }
 ]
