@@ -13,76 +13,114 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-
 import com.cognixia.model.Users;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
 @AutoConfigureMockMvc
 @SpringBootTest
 public class UsersControllerTests {
 
 	@Autowired
 	MockMvc mvc;
-	
-	@Test
-	public void getAllUsers()
-	{
-		try {
-			mvc.perform(get("/users"))
-			.andExpect(status().is(200))
-		.andDo(print());
-		} catch (Exception e) {
-		e.printStackTrace();
-		}
-	}
-	
 
 	@Test
-	public void getUsersByID()
-	{
-	try {
-			mvc.perform(get("/users/user/1"))
-			.andExpect(status().is(200))
-			.andDo(print());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	@Test
-	public void verfiyNotFoundUser()
-	{
+	public void getAllUsers() {
 		try {
-			mvc.perform(get("/users/user/232"))
-			.andExpect(status().is(404))
-			.andDo(print());
+			mvc.perform(get("/users")).andExpect(status().is(200)).andDo(print());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+
 	@Test
-	public void addUsers()
-	{
-		
+	public void verfiyNotFoundUsers() {
+		try {
+			mvc.perform(get("/user")).andExpect(status().is(404)).andDo(print());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void getUsersByID() {
+		try {
+			mvc.perform(get("/users/user/1")).andExpect(status().is(200)).andDo(print());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void verfiyNotFoundUserId() {
+		try {
+			mvc.perform(get("/users/user/232")).andExpect(status().is(404)).andDo(print());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void getCurrentUserId() {
+		try {
+			mvc.perform(get("/users/current_user")).andExpect(status().is(200)).andDo(print());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void verfiyNotFoundCurrentUserId() {
+		try {
+			mvc.perform(get("/users/currentuser")).andExpect(status().is(404)).andDo(print());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void addUsers() {
+
 		Users u = new Users();
+
 		u.setUserName("Testing");
 		u.setPassword("Password");
 		u.setMobilePhone("111111");
 		u.setEmail("test@gmail.com");
 		u.setLastLogin(LocalDateTime.now());
-		
-		
+
 		ObjectMapper om = new ObjectMapper();
 		om.registerModule(new JavaTimeModule());
 		om.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
 		try {
 			mvc.perform(post("/users/user").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsString(u)))
-			.andExpect(status().is(201))
-			.andDo(print());
+					.andExpect(status().is(201)).andDo(print());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void verfiyaddUsers() {
+
+		Users u = new Users();
+
+		u.setPassword("Password");
+		u.setMobilePhone("111111");
+		u.setEmail("test@gmail.com");
+		u.setLastLogin(LocalDateTime.now());
+
+		ObjectMapper om = new ObjectMapper();
+		om.registerModule(new JavaTimeModule());
+		om.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
+		try {
+			mvc.perform(post("/users/user").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsString(u)))
+					.andExpect(status().is(400)).andDo(print());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-
-}}
+	}
+}

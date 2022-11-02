@@ -15,28 +15,41 @@ import org.springframework.test.web.servlet.MockMvc;
 public class UsersFormControllerTests {
 	@Autowired
 	MockMvc mvc;
-	
+
 	@Test
-	public void showRegisterForm()
-	{
+	public void showRegisterForm() {
 		try {
-			mvc.perform(get("/users/userpage"))
-			.andExpect(status().is(200))
-		.andDo(print());
+			mvc.perform(get("/users/userpage")).andExpect(status().is(200)).andDo(print());
 		} catch (Exception e) {
-		e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
-	public void showLogin()
-	{
+	public void verfiyNotFoundRegisterForm() {
 		try {
-			mvc.perform(get("/users/login"))
-			.andExpect(status().is(200))
-		.andDo(print());
+			mvc.perform(get("/user/userpage")).andExpect(status().is(404)).andDo(print());
 		} catch (Exception e) {
-		e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
+
+	@Test
+	public void showLogin() {
+		try {
+			mvc.perform(get("/users/login")).andExpect(status().is(200)).andDo(print());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void verfiyNotFoundLogin() {
+		try {
+			mvc.perform(get("/user/login")).andExpect(status().is(404)).andDo(print());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 }
