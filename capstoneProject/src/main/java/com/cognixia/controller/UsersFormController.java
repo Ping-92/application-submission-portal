@@ -44,7 +44,7 @@ public class UsersFormController implements WebMvcConfigurer {
 	}
 
 	@GetMapping("/login")
-	public String showForm(Users user) {
+	public String showLogin(Users user) {
 		return "login";
 	}
 
@@ -57,5 +57,6 @@ public class UsersFormController implements WebMvcConfigurer {
 		} else {
 			return "loginFail";
 		}
+
 	}
 }
