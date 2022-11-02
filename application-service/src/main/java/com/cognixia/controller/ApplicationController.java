@@ -100,10 +100,4 @@ public class ApplicationController {
 		else
 			return ResponseEntity.notFound().build(); 
 	}
-	
-// JSON Reading Related
-//	@GetMapping("/listfromjson") 
-//	public Iterable<Application> listFromJson(){
-//		return applicationService.listFromJson();
-//	}
 }

@@ -8,6 +8,8 @@ public class ProcessingApplicationProcessor implements ItemProcessor<Application
 
 	@Override
 	public Application process(Application application) throws Exception {
+		
+		application.setApplicationStatus("Processed-EmailNotSent");
 		return application;
 	}
 }
