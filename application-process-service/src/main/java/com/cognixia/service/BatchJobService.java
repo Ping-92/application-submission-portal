@@ -38,7 +38,7 @@ public class BatchJobService {
 
 
 	
-	@Scheduled(cron = "0 09 11 * * ?")
+	@Scheduled(cron = "0 27 12 * * ?")
 	public void firstJobStarter() {
 		Map<String, JobParameter> params = new HashMap<>();
 
