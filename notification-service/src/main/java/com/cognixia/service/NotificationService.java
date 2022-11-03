@@ -35,7 +35,7 @@ public class NotificationService {
 
 	// To send notification email
 	@Transactional
-	@Scheduled(cron = "0 46 14 * * ?")
+	@Scheduled(cron = "0 21 15 * * ?")
 	public String sendMail() {
 
 		List<PermApplication> retrieveAllAppliactionsList = applicationService.getAllPermApplications();
@@ -55,10 +55,11 @@ public class NotificationService {
 					SimpleMailMessage mailMessage = new SimpleMailMessage();
 
 					// Setting up necessary details
+					Notification newNotif = addNotification(a);
 					mailMessage.setFrom(sender);
 					mailMessage.setTo(a.getUser().getEmail());
-					mailMessage.setText("Application has been successfully processed!");
-					mailMessage.setSubject("Testing");
+					mailMessage.setText(newNotif.getMessage());
+					mailMessage.setSubject("Application Outcome");
 
 					// Sending the mail
 					javaMailSender.send(mailMessage);
