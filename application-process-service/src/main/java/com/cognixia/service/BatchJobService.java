@@ -38,7 +38,7 @@ public class BatchJobService {
 
 
 	
-	@Scheduled(cron = "0 09 11 * * ?")
+	@Scheduled(cron = "0 44 14 * * ?")
 	public void firstJobStarter() {
 		Map<String, JobParameter> params = new HashMap<>();
 
@@ -48,11 +48,11 @@ public class BatchJobService {
 		JobParameters jobParameters = new JobParameters(params);
 		try {
 			downloadFile();
+			TimeUnit.SECONDS.sleep(5);
 			JobExecution jobExecution = 
 					jobLauncher.run(writeApplicationDataIntoSqlDb, jobParameters);
 			System.out.println("Job Execution Id = " +jobExecution.getJobId());
 			TimeUnit.SECONDS.sleep(5);
-			
 		} catch (JobExecutionAlreadyRunningException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

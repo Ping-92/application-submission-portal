@@ -10,5 +10,17 @@
   "applicationStatus" : "Submitted",
   "userId" : 2,
   "user" : null
+},
+ {
+  "applicationId" : 6,
+  "name" : "testing name",
+  "race" : "abcd",
+  "dateOfBirth" : [ 1999, 2, 12 ],
+  "countryOfBirth" : "singapore",
+  "vaccinationStatus" : "vaccinated",
+  "submissionDateTime" : [ 2022, 11, 3, 14, 39, 11, 256899000 ],
+  "applicationStatus" : "Submitted",
+  "userId" : 3,
+  "user" : null
 }
 ]

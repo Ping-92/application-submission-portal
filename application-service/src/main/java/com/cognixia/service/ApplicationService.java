@@ -24,15 +24,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cognixia.common.exception.ApplicationNotFoundException;
 import com.cognixia.model.Application;
-import com.cognixia.model.PermApplication;
 import com.cognixia.repository.ApplicationRepository;
-import com.cognixia.repository.PermApplicationRepository;
 
 @Service
 public class ApplicationService {
 	private ApplicationRepository applicationRepository;
-	
-	private PermApplicationRepository permApplicationRepository;
 	
 	private UsersService usersService;
 	
@@ -51,11 +47,9 @@ public class ApplicationService {
 	
 	@Autowired
 	public ApplicationService(
-			ApplicationRepository applicationRepository, PermApplicationRepository permApplicationRepository,
-			@Lazy UsersService usersService) {
+			ApplicationRepository applicationRepository, @Lazy UsersService usersService) {
 		this.applicationRepository = applicationRepository;
 		this.usersService = usersService;
-		this.permApplicationRepository = permApplicationRepository;
 	}
 	
 	
@@ -123,39 +117,10 @@ public class ApplicationService {
 	
 	// truncate table
 	@Transactional
-	@Scheduled(cron = "0 24 20 1/1 * ?")
+	@Scheduled(cron = "0 42 14 * * ?")
 	public boolean removeAllApplication() {
 		applicationRepository.truncateApplicationTable();
 		return true;	
 	}
 	
-	// start of PermApplication methods
-	// retrieve one PermApplication by searching for application id
-	public PermApplication getPermApplicationById(int applicationId) {
-		PermApplication permApplication = permApplicationRepository.findById(applicationId)
-				.orElseThrow(ApplicationNotFoundException::new);
-		
-		if (permApplication != null) {
-			permApplication.setUser(usersService.getUserById(permApplication.getUserId()));
-		}
-		return permApplication;
-	}
-
-	// retrieve full list of PermApplication
-	public List<PermApplication> getAllPermApplications() {
-		List<PermApplication> appList = permApplicationRepository.findAll();
-		for (PermApplication permApplication : appList) {
-			permApplication.setUser(usersService.getUserById(permApplication.getUserId()));
-		}
-		return appList;
-	}
-
-	
-	// update PermApplication
-	public PermApplication updatePermApplication(PermApplication permApplication) {
-		getPermApplicationById(permApplication.getApplicationId());
-		return permApplicationRepository.save(permApplication);
-	}
-	
-	// end of PermApplication methods
 }
