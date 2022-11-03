@@ -38,7 +38,7 @@ public class BatchJobService {
 
 
 	
-	@Scheduled(cron = "0 09 11 * * ?")
+	@Scheduled(cron = "0 27 12 * * ?")
 	public void firstJobStarter() {
 		Map<String, JobParameter> params = new HashMap<>();
 
@@ -73,7 +73,7 @@ public class BatchJobService {
 	}
 
 	//download json file from SFTP
-	@Scheduled(cron = "0 07 11 * * ?")
+	@Scheduled(cron = "0 26 12 * * ?")
 	public static void downloadFile() throws IOException {
 		System.out.println("Downloading...");
 		Path currentRelativePath = Paths.get("");
