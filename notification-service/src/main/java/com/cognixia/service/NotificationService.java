@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cognixia.model.Notification;
 import com.cognixia.model.PermApplication;
@@ -31,7 +33,9 @@ public class NotificationService {
 	private String sender;
 	
 
-	// To send a simple email
+	// To send notification email
+	@Transactional
+	@Scheduled(cron = "0 31 13 * * ?")
 	public String sendMail() {
 
 		List<PermApplication> retrieveAllAppliactionsList = applicationService.getAllPermApplications();
@@ -80,7 +84,7 @@ public class NotificationService {
 		Notification newNotification = new Notification();
 		newNotification.setApplication(permApplication);
 		newNotification.setApplicationId(permApplication.getApplicationId());
-		newNotification.setMessage("Application has been successfully processed!");
+		newNotification.setMessage("Hello, " + permApplication.getName() +" your application has been successfully processed!");
 		newNotification.setNotificationSent(LocalDateTime.now());
 		newNotification.setReceipientEmail(permApplication.getUser().getEmail());
 		notificationRepository.save(newNotification);
