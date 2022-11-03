@@ -16,6 +16,12 @@ spring:
         - Path=/api/applicationservice/**
         filters:
         - StripPrefix=2
+      - id: APPLICATION-PROCESS-SERVICE
+        uri: lb://APPLICATION-PROCESS-SERVICE
+        predicates:
+        - Path=/api/applicationprocessservice/**
+        filters:
+        - StripPrefix=2
       - id: USER-SERVICE
         uri: lb://USER-SERVICE
         predicates:
