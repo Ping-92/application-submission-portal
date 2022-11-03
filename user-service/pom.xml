@@ -8,9 +8,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.cognixia</groupId>
-	<artifactId>capstoneProject</artifactId>
+	<artifactId>user-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>capstoneProject</name>
+	<name>user-service</name>
 	<description>ftp</description>
 	<properties>
 		<java.version>19</java.version>
