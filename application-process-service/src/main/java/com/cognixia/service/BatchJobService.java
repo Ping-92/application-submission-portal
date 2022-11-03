@@ -47,6 +47,7 @@ public class BatchJobService {
 
 		JobParameters jobParameters = new JobParameters(params);
 		try {
+			downloadFile();
 			JobExecution jobExecution = 
 					jobLauncher.run(writeApplicationDataIntoSqlDb, jobParameters);
 			System.out.println("Job Execution Id = " +jobExecution.getJobId());
@@ -67,13 +68,15 @@ public class BatchJobService {
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		
 	}
 
 	//download json file from SFTP
-	@Scheduled(cron = "0 07 11 * * ?")
 	public static void downloadFile() throws IOException {
 		System.out.println("Downloading...");
 		Path currentRelativePath = Paths.get("");
