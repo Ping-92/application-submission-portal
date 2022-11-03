@@ -1,26 +1,26 @@
 [
  {
-  "applicationId" : 1,
-  "name" : "1111",
-  "race" : "1111",
-  "dateOfBirth" : [ 1992, 1, 1 ],
-  "countryOfBirth" : "asd",
-  "vaccinationStatus" : "asd",
-  "submissionDateTime" : [ 2022, 10, 31, 11, 38, 23, 516883000 ],
+  "applicationId" : 5,
+  "name" : "samantha",
+  "race" : "abc",
+  "dateOfBirth" : [ 1999, 11, 11 ],
+  "countryOfBirth" : "singapore",
+  "vaccinationStatus" : "vaccinated",
+  "submissionDateTime" : [ 2022, 11, 3, 10, 5, 47, 16474000 ],
   "applicationStatus" : "Submitted",
-  "userId" : 1,
+  "userId" : 2,
   "user" : null
 },
  {
-  "applicationId" : 2,
-  "name" : "213123",
-  "race" : "123123",
-  "dateOfBirth" : [ 1990, 11, 1 ],
-  "countryOfBirth" : "asdas",
-  "vaccinationStatus" : "asdasd",
-  "submissionDateTime" : [ 2022, 10, 31, 11, 47, 38, 852214000 ],
+  "applicationId" : 6,
+  "name" : "testing name",
+  "race" : "abcd",
+  "dateOfBirth" : [ 1999, 2, 12 ],
+  "countryOfBirth" : "singapore",
+  "vaccinationStatus" : "vaccinated",
+  "submissionDateTime" : [ 2022, 11, 3, 14, 39, 11, 256899000 ],
   "applicationStatus" : "Submitted",
-  "userId" : 1,
+  "userId" : 3,
   "user" : null
 }
 ]

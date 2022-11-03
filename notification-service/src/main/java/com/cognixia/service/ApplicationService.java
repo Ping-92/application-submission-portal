@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.cognixia.model.PermApplication;
 
 @Service
-@FeignClient(name="APPLICATION-SERVICE")
+@FeignClient(name="APPLICATION-PROCESS-SERVICE")
 public interface ApplicationService {
 	
 	// get all permApplication
