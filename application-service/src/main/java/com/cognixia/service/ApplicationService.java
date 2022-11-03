@@ -117,7 +117,7 @@ public class ApplicationService {
 	
 	// truncate table
 	@Transactional
-	@Scheduled(cron = "0 28 12 1/1 * ?")
+	@Scheduled(cron = "0 42 14 * * ?")
 	public boolean removeAllApplication() {
 		applicationRepository.truncateApplicationTable();
 		return true;	

@@ -35,7 +35,7 @@ public class NotificationService {
 
 	// To send notification email
 	@Transactional
-	@Scheduled(cron = "0 31 13 * * ?")
+	@Scheduled(cron = "0 46 14 * * ?")
 	public String sendMail() {
 
 		List<PermApplication> retrieveAllAppliactionsList = applicationService.getAllPermApplications();
